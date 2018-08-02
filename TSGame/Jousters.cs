@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Media
+using System.Media;
 
 namespace TSGame
 {
@@ -13,20 +13,18 @@ namespace TSGame
     {
         public Jousters(PictureBox enemy,  PictureBox sprite, PictureBox health1, PictureBox health2, PictureBox health3, int side)
         {
-            this.timer = new System.Windows.Forms.Timer();
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = 35;
             Sprite = sprite;
             Enemy = enemy;
             Health[0] = health1;
             Health[1] = health2;
             Health[2] = health3;
 
-            //Crop Sprite
-            if (side == 1) Sprite.Image = CropBitmap(Jouster, 0, 0, 144, 138, 1);
-            else Sprite.Image = CropBitmap(Jouster, 0, 755, 144, 138, 0);
-
-            //Crop Health
+            //Crop Sprite & Health
             if (side == 1)
             {
+                Sprite.Image = CropBitmap(Jouster, 0, 0, 144, 138, 1);
                 for (int i = 0; i < 3; i++)
                 {
                     Health[i].Image = CropBitmap(Shield, 1164, 803, 699, 650, 0);
@@ -34,6 +32,7 @@ namespace TSGame
             }
             else
             {
+                Sprite.Image = CropBitmap(Jouster, 0, 755, 144, 138, 0);
                 for (int i = 0; i < 3; i++)
                 {
                     Health[i].Image = CropBitmap(Shield, 1178, 19, 699, 650, 0);
@@ -61,9 +60,8 @@ namespace TSGame
                 idle.Stop();
                 timer.Start();
                 moving.Play();
-                CropSprite(x * 144, y * 138, 1);
-                 += 144;
-                Sprite.Location. += 1;
+                Sprite.Image = CropBitmap(Jouster, 0, 0, 144, 138, 0);
+                Sprite.Location = new Point(Sprite.Location.X + speed, Sprite.Location.Y);
             }
             timer.Stop();
             idle.PlayLooping();
@@ -77,7 +75,7 @@ namespace TSGame
                 idle.Stop();
                 timer.Start();
                 moving.Play();
-                CropSprite(45, 45, 1);
+                Sprite.Image = CropBitmap(Jouster, 0, 0, 144, 138, 1);
             }
             timer.Stop();
             idle.PlayLooping();
@@ -91,8 +89,14 @@ namespace TSGame
                 idle.Stop();
                 timer.Start();
                 lance_drop.Play();
-                CropSprite(45, 45, 1);
+                if (y_anim != 4)
+                {
+                    y_anim++;
+                    Sprite.Image = CropBitmap(Jouster, x_anim * 144, y_anim * 138, 144, 138, 0);
+                }
             }
+            y_anim--;
+            Sprite.Image = CropBitmap(Jouster, x_anim * 144, y_anim * 138, 144, 138, 0);
             timer.Stop();
 
             return;
@@ -134,5 +138,9 @@ namespace TSGame
         private PictureBox Enemy;
         private PictureBox[] Health = new PictureBox[3];
         private Timer timer;
+        private int state;
+        private int x_anim;
+        private int y_anim;
+        private int speed = 1;
     }
 }

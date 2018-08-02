@@ -66,7 +66,7 @@ namespace TSGame
                 this.panelStartMenu.Hide();
                 pauseMenuOpen = false;
             }
-            else
+            else if (keyData == Keys.Escape)
             {
                 this.panelStartMenu.Show();
                 pauseMenuOpen = true;
