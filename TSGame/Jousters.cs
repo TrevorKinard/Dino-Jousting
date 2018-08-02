@@ -53,9 +53,10 @@ namespace TSGame
         }
 
         //Controls
-        public void moveLeft(Keys keyData)
+        public void moveLeft(object sender, KeyEventArgs e)
         {  
-            while (keyData == Keys.Left)
+            //Changed these to if so I could test them, using while causes a memory shortage
+            if (e.KeyCode == Keys.Left)
             {
                 idle.Stop();
                 timer.Start();
@@ -68,23 +69,24 @@ namespace TSGame
 
             return;
         }
-        public void moveRight(Keys keyData)
+        public void moveRight(object sender, KeyEventArgs e)
         {
-            while (keyData == Keys.Right)
+            if (e.KeyCode == Keys.Right)
             {
                 idle.Stop();
                 timer.Start();
                 moving.Play();
                 Sprite.Image = CropBitmap(Jouster, 0, 0, 144, 138, 1);
+                Sprite.Location = new Point(Sprite.Location.X - speed, Sprite.Location.Y);
             }
             timer.Stop();
             idle.PlayLooping();
 
             return;
         }
-        public void Lance(Keys keyData)
+        public void Lance(object sender, KeyEventArgs e)
         {
-            while (keyData == Keys.Space)
+            if (e.KeyCode == Keys.Space)
             {
                 idle.Stop();
                 timer.Start();
@@ -101,9 +103,9 @@ namespace TSGame
 
             return;
         }
-        public void Jab(Keys keyData)
+        public void Jab(object sender, KeyEventArgs e)
         {
-            if (keyData == Keys.Control)
+            if (e.KeyCode == Keys.Control)
             {
                 jab.Play();
                 if (Enemy.Location.X - Sprite.Location.X < 220 || Enemy.Location.X - Sprite.Location.X > 200 ||
