@@ -21,8 +21,8 @@ namespace TSGame
         public formMain()
         {
             InitializeComponent();
+            Jousters PlJouster = new Jousters(this.EnemyJouster, this.PlayerJouster, this.PlayerHealth1, this.PlayerHealth2, this.PlayerHealth3, 0);
             Jousters EnJouster = new Jousters(this.PlayerJouster, this.EnemyJouster, this.EnemyHealth1, this.EnemyHealth2, this.EnemyHealth3, 1);
-            Jousters PlJouster = new Jousters(this.EnemyJouster,  this.PlayerJouster, this.PlayerHealth1, this.PlayerHealth2, this.PlayerHealth3, 0);
 
             this.KeyDown += new KeyEventHandler(EnJouster.moveLeft);
             this.KeyDown += new KeyEventHandler(EnJouster.moveRight);

@@ -13,8 +13,6 @@ namespace TSGame
     {
         public Jousters(PictureBox enemy,  PictureBox sprite, PictureBox health1, PictureBox health2, PictureBox health3, int side)
         {
-            timer = new System.Windows.Forms.Timer();
-            timer.Interval = 35;
             Sprite = sprite;
             Enemy = enemy;
             Health[0] = health1;
@@ -49,38 +47,37 @@ namespace TSGame
         public void damage()
         {
             hit.Play();
-            Health[0].Image = CropBitmap(Shield, 2103, 56, 699, 650, 0);
+            Rival.Health[0].Image = CropBitmap(Shield, 2103, 56, 699, 650, 0);
         }
 
         //Controls
         public void moveLeft(object sender, KeyEventArgs e)
-        {  
+        {
             //Changed these to if so I could test them, using while causes a memory shortage
-            if (e.KeyCode == Keys.Left)
+            if (e.KeyCode == Keys.Left && Sprite.Location.X != 0)
             {
                 idle.Stop();
-                timer.Start();
                 moving.Play();
+                Delayed();
                 Sprite.Image = CropBitmap(Jouster, 0, 0, 144, 138, 0);
                 Sprite.Location = new Point(Sprite.Location.X + speed, Sprite.Location.Y);
+                idle.PlayLooping();
             }
-            timer.Stop();
-            idle.PlayLooping();
 
             return;
         }
         public void moveRight(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Right)
+            if (e.KeyCode == Keys.Right && formMain.ActiveForm.Size.Width != Sprite.Location.X + Sprite.Width)
             {
                 idle.Stop();
-                timer.Start();
                 moving.Play();
-                Sprite.Image = CropBitmap(Jouster, 0, 0, 144, 138, 1);
+                Delayed();
+                Sprite.Image = CropBitmap(Jouster, x_anim, y_anim, 144, 138, 1);
+                if (x_anim == 144 * 4) x_anim = 0;
                 Sprite.Location = new Point(Sprite.Location.X - speed, Sprite.Location.Y);
+                idle.PlayLooping();
             }
-            timer.Stop();
-            idle.PlayLooping();
 
             return;
         }
@@ -89,17 +86,24 @@ namespace TSGame
             if (e.KeyCode == Keys.Space)
             {
                 idle.Stop();
-                timer.Start();
                 lance_drop.Play();
+                Delayed();
                 if (y_anim != 4)
                 {
                     y_anim++;
                     Sprite.Image = CropBitmap(Jouster, x_anim * 144, y_anim * 138, 144, 138, 0);
                 }
+                idle.PlayLooping();
             }
-            y_anim--;
-            Sprite.Image = CropBitmap(Jouster, x_anim * 144, y_anim * 138, 144, 138, 0);
-            timer.Stop();
+            else
+            {
+                while (y_anim != 0)
+                {
+                    y_anim--;
+                    Delayed();
+                    Sprite.Image = CropBitmap(Jouster, x_anim * 144, y_anim * 138, 144, 138, 0);
+                }
+            }
 
             return;
         }
@@ -113,6 +117,17 @@ namespace TSGame
             }
 
             return;
+        }
+
+        //Sprite animation rate
+        private void Delayed()
+        {
+            Timer timer = new Timer();
+            timer.Interval = 35;
+            timer.Tick += (s, e) => {
+                timer.Stop();
+            };
+            timer.Start();
         }
 
         //Image cropping
@@ -138,8 +153,7 @@ namespace TSGame
         private SoundPlayer hit = new SoundPlayer(global::TSGame.Properties.Resources.Shield_Bash);
         private PictureBox Sprite;
         private PictureBox Enemy;
-        private PictureBox[] Health = new PictureBox[3];
-        private Timer timer;
+        public PictureBox[] Health = new PictureBox[3];
         private int state;
         private int x_anim;
         private int y_anim;
