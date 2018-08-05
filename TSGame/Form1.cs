@@ -29,6 +29,7 @@ namespace TSGame
             this.KeyDown += new KeyEventHandler(EnJouster.Jab);
             this.KeyDown += new KeyEventHandler(EnJouster.Lance);
             PlJouster.setRival(EnJouster);
+            EnJouster.setRival(PlJouster);
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(global::TSGame.Properties.Resources.Gurdys_Green___Patty_Gurdy__Hurdy_Gurdy_Music_);
             player.PlayLooping();
         }

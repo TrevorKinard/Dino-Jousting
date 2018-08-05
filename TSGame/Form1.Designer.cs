@@ -62,6 +62,7 @@
             this.panelGamePlay.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelGamePlay.BackgroundImage")));
             this.panelGamePlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panelGamePlay.Controls.Add(this.panelStartMenu);
+            this.panelGamePlay.Controls.Add(this.EnemyJouster);
             this.panelGamePlay.Controls.Add(this.EnemyHealth1);
             this.panelGamePlay.Controls.Add(this.EnemyHealth2);
             this.panelGamePlay.Controls.Add(this.label2);
@@ -71,7 +72,6 @@
             this.panelGamePlay.Controls.Add(this.label1);
             this.panelGamePlay.Controls.Add(this.PlayerHealth1);
             this.panelGamePlay.Controls.Add(this.PlayerJouster);
-            this.panelGamePlay.Controls.Add(this.EnemyJouster);
             this.panelGamePlay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelGamePlay.Location = new System.Drawing.Point(0, 0);
             this.panelGamePlay.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
@@ -136,7 +136,7 @@
             this.EnemyHealth1.Location = new System.Drawing.Point(224, 57);
             this.EnemyHealth1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.EnemyHealth1.Name = "EnemyHealth1";
-            this.EnemyHealth1.Size = new System.Drawing.Size(101, 100);
+            this.EnemyHealth1.Size = new System.Drawing.Size(100, 100);
             this.EnemyHealth1.TabIndex = 11;
             this.EnemyHealth1.TabStop = false;
             // 
@@ -147,7 +147,7 @@
             this.EnemyHealth2.Location = new System.Drawing.Point(117, 57);
             this.EnemyHealth2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.EnemyHealth2.Name = "EnemyHealth2";
-            this.EnemyHealth2.Size = new System.Drawing.Size(101, 100);
+            this.EnemyHealth2.Size = new System.Drawing.Size(100, 100);
             this.EnemyHealth2.TabIndex = 10;
             this.EnemyHealth2.TabStop = false;
             // 
@@ -169,7 +169,7 @@
             this.EnemyHealth3.Location = new System.Drawing.Point(11, 57);
             this.EnemyHealth3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.EnemyHealth3.Name = "EnemyHealth3";
-            this.EnemyHealth3.Size = new System.Drawing.Size(101, 100);
+            this.EnemyHealth3.Size = new System.Drawing.Size(100, 100);
             this.EnemyHealth3.TabIndex = 8;
             this.EnemyHealth3.TabStop = false;
             // 
@@ -181,7 +181,7 @@
             this.PlayerHealth3.Location = new System.Drawing.Point(1805, 57);
             this.PlayerHealth3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PlayerHealth3.Name = "PlayerHealth3";
-            this.PlayerHealth3.Size = new System.Drawing.Size(101, 100);
+            this.PlayerHealth3.Size = new System.Drawing.Size(100, 100);
             this.PlayerHealth3.TabIndex = 7;
             this.PlayerHealth3.TabStop = false;
             // 
@@ -193,7 +193,7 @@
             this.PlayerHealth2.Location = new System.Drawing.Point(1701, 57);
             this.PlayerHealth2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PlayerHealth2.Name = "PlayerHealth2";
-            this.PlayerHealth2.Size = new System.Drawing.Size(101, 100);
+            this.PlayerHealth2.Size = new System.Drawing.Size(100, 100);
             this.PlayerHealth2.TabIndex = 6;
             this.PlayerHealth2.TabStop = false;
             // 
@@ -214,10 +214,10 @@
             this.PlayerHealth1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PlayerHealth1.BackColor = System.Drawing.Color.Transparent;
             this.PlayerHealth1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.PlayerHealth1.Location = new System.Drawing.Point(1595, 57);
+            this.PlayerHealth1.Location = new System.Drawing.Point(1599, 57);
             this.PlayerHealth1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PlayerHealth1.Name = "PlayerHealth1";
-            this.PlayerHealth1.Size = new System.Drawing.Size(101, 100);
+            this.PlayerHealth1.Size = new System.Drawing.Size(100, 100);
             this.PlayerHealth1.TabIndex = 4;
             this.PlayerHealth1.TabStop = false;
             // 
