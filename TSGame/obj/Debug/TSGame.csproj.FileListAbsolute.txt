@@ -1,0 +1,9 @@
+C:\Users\roshall\Desktop\Dino-Jousting-master\TSGame\bin\Debug\TSGame.exe.config
+C:\Users\roshall\Desktop\Dino-Jousting-master\TSGame\bin\Debug\TSGame.exe
+C:\Users\roshall\Desktop\Dino-Jousting-master\TSGame\bin\Debug\TSGame.pdb
+C:\Users\roshall\Desktop\Dino-Jousting-master\TSGame\obj\Debug\TSGame.csprojResolveAssemblyReference.cache
+C:\Users\roshall\Desktop\Dino-Jousting-master\TSGame\obj\Debug\TSGame.formMain.resources
+C:\Users\roshall\Desktop\Dino-Jousting-master\TSGame\obj\Debug\TSGame.Properties.Resources.resources
+C:\Users\roshall\Desktop\Dino-Jousting-master\TSGame\obj\Debug\TSGame.csproj.GenerateResource.Cache
+C:\Users\roshall\Desktop\Dino-Jousting-master\TSGame\obj\Debug\TSGame.exe
+C:\Users\roshall\Desktop\Dino-Jousting-master\TSGame\obj\Debug\TSGame.pdb
