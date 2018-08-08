@@ -1,0 +1,10 @@
+C:\Users\rossh\Desktop\New folder\obj\Debug\TSGame.csprojAssemblyReference.cache
+C:\Users\rossh\Desktop\New folder\obj\Debug\TSGame.formMain.resources
+C:\Users\rossh\Desktop\New folder\obj\Debug\TSGame.Properties.Resources.resources
+C:\Users\rossh\Desktop\New folder\obj\Debug\TSGame.csproj.GenerateResource.cache
+C:\Users\rossh\Desktop\New folder\obj\Debug\TSGame.csproj.CoreCompileInputs.cache
+C:\Users\rossh\Desktop\New folder\bin\Debug\TSGame.exe.config
+C:\Users\rossh\Desktop\New folder\bin\Debug\TSGame.exe
+C:\Users\rossh\Desktop\New folder\bin\Debug\TSGame.pdb
+C:\Users\rossh\Desktop\New folder\obj\Debug\TSGame.exe
+C:\Users\rossh\Desktop\New folder\obj\Debug\TSGame.pdb
