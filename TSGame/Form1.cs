@@ -21,15 +21,24 @@ namespace TSGame
         public formMain()
         {
             InitializeComponent();
+
+            //Merge Image Layers
+            PlayerJouster.Parent = EnemyJouster;
+            PlayerJouster.Location = new Point(0,0);
+
+            //Initilize Jousters (Opposing Picturebox, Characters Picturebox, Health Icon 1, Health Icon 2, Health Icon 3, Side(player: 0, Opposing: 1))
             Jousters PlJouster = new Jousters(this.EnemyJouster, this.PlayerJouster, this.PlayerHealth1, this.PlayerHealth2, this.PlayerHealth3, 0);
             Jousters EnJouster = new Jousters(this.PlayerJouster, this.EnemyJouster, this.EnemyHealth1, this.EnemyHealth2, this.EnemyHealth3, 1);
 
-            this.KeyDown += new KeyEventHandler(EnJouster.moveLeft);
-            this.KeyDown += new KeyEventHandler(EnJouster.moveRight);
-            this.KeyDown += new KeyEventHandler(EnJouster.Jab);
-            this.KeyDown += new KeyEventHandler(EnJouster.Lance);
+            //Take User Input
+            this.KeyDown += new KeyEventHandler(PlJouster.keydown);
+            this.KeyUp += new KeyEventHandler(PlJouster.keyup);
+
+            //Pass the Opposing Jouster
             PlJouster.setRival(EnJouster);
             EnJouster.setRival(PlJouster);
+
+            //Menu background music
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(global::TSGame.Properties.Resources.Gurdys_Green___Patty_Gurdy__Hurdy_Gurdy_Music_);
             player.PlayLooping();
         }
