@@ -34,7 +34,6 @@
             this.buttonExit = new System.Windows.Forms.Button();
             this.buttonOptions = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
-            this.PlayerJouster = new System.Windows.Forms.PictureBox();
             this.EnemyHealth1 = new System.Windows.Forms.PictureBox();
             this.EnemyHealth2 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -43,16 +42,17 @@
             this.PlayerHealth2 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.PlayerHealth1 = new System.Windows.Forms.PictureBox();
+            this.PlayerJouster = new System.Windows.Forms.PictureBox();
             this.EnemyJouster = new System.Windows.Forms.PictureBox();
             this.panelGamePlay.SuspendLayout();
             this.panelStartMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PlayerJouster)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnemyHealth1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnemyHealth2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnemyHealth3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerHealth3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerHealth2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerHealth1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerJouster)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnemyJouster)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,7 +62,7 @@
             this.panelGamePlay.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelGamePlay.BackgroundImage")));
             this.panelGamePlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panelGamePlay.Controls.Add(this.panelStartMenu);
-            this.panelGamePlay.Controls.Add(this.PlayerJouster);
+            this.panelGamePlay.Controls.Add(this.EnemyJouster);
             this.panelGamePlay.Controls.Add(this.EnemyHealth1);
             this.panelGamePlay.Controls.Add(this.EnemyHealth2);
             this.panelGamePlay.Controls.Add(this.label2);
@@ -71,7 +71,7 @@
             this.panelGamePlay.Controls.Add(this.PlayerHealth2);
             this.panelGamePlay.Controls.Add(this.label1);
             this.panelGamePlay.Controls.Add(this.PlayerHealth1);
-            this.panelGamePlay.Controls.Add(this.EnemyJouster);
+            this.panelGamePlay.Controls.Add(this.PlayerJouster);
             this.panelGamePlay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelGamePlay.Location = new System.Drawing.Point(0, 0);
             this.panelGamePlay.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
@@ -128,18 +128,6 @@
             this.buttonStart.Text = "Start";
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
-            // 
-            // PlayerJouster
-            // 
-            this.PlayerJouster.BackColor = System.Drawing.Color.Transparent;
-            this.PlayerJouster.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.PlayerJouster.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PlayerJouster.Location = new System.Drawing.Point(0, 0);
-            this.PlayerJouster.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.PlayerJouster.Name = "PlayerJouster";
-            this.PlayerJouster.Size = new System.Drawing.Size(1920, 625);
-            this.PlayerJouster.TabIndex = 2;
-            this.PlayerJouster.TabStop = false;
             // 
             // EnemyHealth1
             // 
@@ -233,16 +221,28 @@
             this.PlayerHealth1.TabIndex = 4;
             this.PlayerHealth1.TabStop = false;
             // 
+            // PlayerJouster
+            // 
+            this.PlayerJouster.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayerJouster.BackColor = System.Drawing.Color.Transparent;
+            this.PlayerJouster.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.PlayerJouster.Location = new System.Drawing.Point(1488, 625);
+            this.PlayerJouster.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.PlayerJouster.Name = "PlayerJouster";
+            this.PlayerJouster.Size = new System.Drawing.Size(432, 415);
+            this.PlayerJouster.TabIndex = 3;
+            this.PlayerJouster.TabStop = false;
+            // 
             // EnemyJouster
             // 
+            this.EnemyJouster.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.EnemyJouster.BackColor = System.Drawing.Color.Transparent;
             this.EnemyJouster.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.EnemyJouster.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.EnemyJouster.Location = new System.Drawing.Point(0, 625);
             this.EnemyJouster.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.EnemyJouster.Name = "EnemyJouster";
-            this.EnemyJouster.Size = new System.Drawing.Size(1920, 455);
-            this.EnemyJouster.TabIndex = 3;
+            this.EnemyJouster.Size = new System.Drawing.Size(432, 415);
+            this.EnemyJouster.TabIndex = 2;
             this.EnemyJouster.TabStop = false;
             // 
             // formMain
@@ -263,13 +263,13 @@
             this.panelGamePlay.ResumeLayout(false);
             this.panelGamePlay.PerformLayout();
             this.panelStartMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PlayerJouster)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnemyHealth1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnemyHealth2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnemyHealth3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerHealth3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerHealth2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerHealth1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerJouster)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnemyJouster)).EndInit();
             this.ResumeLayout(false);
 
@@ -282,8 +282,8 @@
         private System.Windows.Forms.Button buttonOptions;
         private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.Panel panelGamePlay;
-        private System.Windows.Forms.PictureBox PlayerJouster;
         private System.Windows.Forms.PictureBox EnemyJouster;
+        private System.Windows.Forms.PictureBox PlayerJouster;
         private System.Windows.Forms.PictureBox EnemyHealth1;
         private System.Windows.Forms.PictureBox EnemyHealth2;
         private System.Windows.Forms.Label label2;
