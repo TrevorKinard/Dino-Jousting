@@ -94,7 +94,7 @@
             this.panelStartMenu.Controls.Add(this.buttonExit);
             this.panelStartMenu.Controls.Add(this.buttonOptions);
             this.panelStartMenu.Controls.Add(this.buttonStart);
-            this.panelStartMenu.Location = new System.Drawing.Point(205, 113);
+            this.panelStartMenu.Location = new System.Drawing.Point(217, 113);
             this.panelStartMenu.Name = "panelStartMenu";
             this.panelStartMenu.Size = new System.Drawing.Size(286, 201);
             this.panelStartMenu.TabIndex = 0;
@@ -116,7 +116,6 @@
             this.trackBarMusicVolume.Name = "trackBarMusicVolume";
             this.trackBarMusicVolume.Size = new System.Drawing.Size(205, 45);
             this.trackBarMusicVolume.TabIndex = 3;
-            this.trackBarMusicVolume.Value = 5;
             this.trackBarMusicVolume.Visible = false;
             // 
             // buttonExit
@@ -159,13 +158,14 @@
             // 
             this.PlayerJouster.BackColor = System.Drawing.Color.Transparent;
             this.PlayerJouster.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.PlayerJouster.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PlayerJouster.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PlayerJouster.Location = new System.Drawing.Point(0, 0);
             this.PlayerJouster.Margin = new System.Windows.Forms.Padding(1);
             this.PlayerJouster.Name = "PlayerJouster";
             this.PlayerJouster.Size = new System.Drawing.Size(720, 262);
             this.PlayerJouster.TabIndex = 2;
             this.PlayerJouster.TabStop = false;
+            this.PlayerJouster.Click += new System.EventHandler(this.PlayerJouster_Click);
             // 
             // EnemyHealth1
             // 
@@ -272,15 +272,18 @@
             this.EnemyJouster.Size = new System.Drawing.Size(720, 191);
             this.EnemyJouster.TabIndex = 3;
             this.EnemyJouster.TabStop = false;
+            this.EnemyJouster.Click += new System.EventHandler(this.EnemyJouster_Click);
             // 
             // panelWinScreen
             // 
             this.panelWinScreen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panelWinScreen.Controls.Add(this.label3);
-            this.panelWinScreen.Location = new System.Drawing.Point(-14, 0);
+            this.panelWinScreen.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelWinScreen.Location = new System.Drawing.Point(0, 0);
             this.panelWinScreen.Name = "panelWinScreen";
-            this.panelWinScreen.Size = new System.Drawing.Size(734, 453);
-            this.panelWinScreen.TabIndex = 12;
+            this.panelWinScreen.Size = new System.Drawing.Size(720, 453);
+            this.panelWinScreen.TabIndex = 1;
+            this.panelWinScreen.TabStop = true;
             this.panelWinScreen.Visible = false;
             // 
             // label3
@@ -288,7 +291,8 @@
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Showcard Gothic", 40.25F, System.Drawing.FontStyle.Italic);
-            this.label3.Location = new System.Drawing.Point(250, 71);
+            this.label3.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.label3.Location = new System.Drawing.Point(229, 71);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(262, 67);
             this.label3.TabIndex = 0;

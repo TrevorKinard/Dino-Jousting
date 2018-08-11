@@ -5,10 +5,6 @@ using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Media;
-using System.Windows.Media;
-using System.Threading;
-using System.IO;
-
 namespace TSGame
 {
     class Jousters
@@ -64,8 +60,9 @@ namespace TSGame
         public void damage()
         {
             hit.Play();
-            //PlaySound(@"C:\Users\rossh\Desktop\Dino-Jousting-master\Sound\Shield Bash");
+
             Health[state].BackgroundImage = CropBitmap(Shield, 2103, 56, 699, 650, 0);
+            if (state < 2)
             state++;
         }
 
@@ -73,32 +70,36 @@ namespace TSGame
         public void keydown(object sender, KeyEventArgs e)
         {
             idle.Stop();
-
-            if ((e.KeyCode == Keys.Left || ismovingleft) && location > 0)
+            //If Pause Menu is not open
+            if (!GamePausedFlag)
             {
-                ismovingleft = true;
-                Rival.ismovingright = true;
-                Rival.dir = 1;
-                dir = 0;
-                move();
+                if ((e.KeyCode == Keys.Left || ismovingleft) && location > 0 && !GamePausedFlag)
+                {
+                    ismovingleft = true;
+                    Rival.ismovingright = true;
+                    Rival.dir = 1;
+                    dir = 0;
+                    move();
+                }
+                if ((e.KeyCode == Keys.Right || ismovingright) && formMain.ActiveForm.Width > location + 144)
+                {
+                    ismovingright = true;
+                    Rival.ismovingleft = true;
+                    Rival.dir = 0;
+                    dir = 1;
+                    move();
+                }
+                if (e.KeyCode == Keys.Space || islancing)
+                {
+                    islancing = true;
+                    lance();
+                }
+                if (e.KeyCode == Keys.Up && islancing)
+                {
+                    attack();
+                }
             }
-            if ((e.KeyCode == Keys.Right || ismovingright) && formMain.ActiveForm.Width > location + 144)
-            {
-                ismovingright = true;
-                Rival.ismovingleft = true;
-                Rival.dir = 0;
-                dir = 1;
-                move();
-            }
-            if (e.KeyCode == Keys.Space || islancing)
-            {
-                islancing = true;
-                lance();
-            }
-            if (e.KeyCode == Keys.Up && islancing)
-            {
-                attack();
-            }
+               
 
             idle.PlayLooping();
             return;
@@ -132,7 +133,6 @@ namespace TSGame
         private void move()
         {
             moving.Play();
-            //PlaySound(@"C:\Users\rossh\Desktop\Dino-Jousting-master\Sound\Running.wav");
             x_anim++;
             Sprite.Refresh();
             if (x_anim == 3) x_anim = 0;
@@ -144,14 +144,12 @@ namespace TSGame
                 Enemy.Refresh();
                 if (Rival.x_anim == 3) Rival.x_anim = 0;
             }
-
         }
         private void lance()
         {
             if (y_anim != 3)
             {
                 lance_drop.Play();
-                //PlaySound(@"C:\Users\rossh\Desktop\Dino-Jousting-master\Sound\Lance Drop.wav");
                 y_anim++;
                 Rival.y_anim++;
                 Sprite.Refresh();
@@ -161,18 +159,13 @@ namespace TSGame
         private void attack()
         {
             jab.Play();
-            //PlaySound(@"C:\Users\rossh\Desktop\Dino-Jousting-master\Sound\Jab.wav");
             if (Rival.location - location < 144 * .6 &&
                 Rival.location - location > 144 * .4 || location - Rival.location < 144 * .6 &&
                 location - Rival.location > 144 * .4) Rival.damage();
         }
-
-        private bool isDead()
+        public void setGamePausedFlag(bool flag)
         {
-            if (state == 2)
-                return true;
-            else
-                return false;
+            GamePausedFlag = flag;
         }
 
         //Sprite animation rate
@@ -189,9 +182,8 @@ namespace TSGame
                 location - Rival.location > 144 * .4)
                 {
                     jab.Play();
-                    //PlaySound(@"C:\Users\rossh\Desktop\Dino-Jousting-master\Sound\Jab.wav");
                     Random rand = new Random();
-                    int ranum = rand.Next(0, 1);
+                    int ranum = rand.Next(0, 10);
                     if (ranum == 0) damage();                     
                 }
             }
@@ -226,16 +218,6 @@ namespace TSGame
                 e.Graphics.DrawImage(CropBitmap(Jouster, x_anim * 144, y_anim * 138 + 552, 144, 138, dir), location, 0, crop.Width, crop.Height);
         }
 
-
-
-
-        private void PlaySound(string source)
-        {
-            var mediaPlayer = new MediaPlayer();
-            mediaPlayer.Open(new Uri(Path.GetFullPath(source)));
-            mediaPlayer.Play();
-        }
-
         //Variables
         private Jousters Rival;
         private Bitmap Jouster = global::TSGame.Properties.Resources.Jousting_Sprite;
@@ -246,12 +228,13 @@ namespace TSGame
         private SoundPlayer lance_drop = new SoundPlayer(global::TSGame.Properties.Resources.Lance_Drop);
         private SoundPlayer jab = new SoundPlayer(global::TSGame.Properties.Resources.Jab);
         private SoundPlayer hit = new SoundPlayer(global::TSGame.Properties.Resources.Shield_Bash);
-        public PictureBox Sprite;
-        public PictureBox Enemy;
+        private PictureBox Sprite;
+        private PictureBox Enemy;
         private PictureBox[] Health = new PictureBox[3];
-        private System.Windows.Forms.Timer delay = new System.Windows.Forms.Timer();
+        private Timer delay = new System.Windows.Forms.Timer();
         private int speed = 5;
-        private int Side; 
+        private int Side;
+        private bool GamePausedFlag;
 
         public int location;
         public int state;

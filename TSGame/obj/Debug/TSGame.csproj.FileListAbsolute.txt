@@ -8,13 +8,23 @@ C:\Users\rossh\Desktop\New folder\bin\Debug\TSGame.exe
 C:\Users\rossh\Desktop\New folder\bin\Debug\TSGame.pdb
 C:\Users\rossh\Desktop\New folder\obj\Debug\TSGame.exe
 C:\Users\rossh\Desktop\New folder\obj\Debug\TSGame.pdb
-C:\Users\rossh\Desktop\Dino-Jousting-master\obj\Debug\TSGame.csprojAssemblyReference.cache
-C:\Users\rossh\Desktop\Dino-Jousting-master\obj\Debug\TSGame.formMain.resources
-C:\Users\rossh\Desktop\Dino-Jousting-master\obj\Debug\TSGame.csproj.GenerateResource.cache
-C:\Users\rossh\Desktop\Dino-Jousting-master\obj\Debug\TSGame.pdb
-C:\Users\rossh\Desktop\Dino-Jousting-master\bin\Debug\TSGame.exe.config
-C:\Users\rossh\Desktop\Dino-Jousting-master\bin\Debug\TSGame.exe
-C:\Users\rossh\Desktop\Dino-Jousting-master\bin\Debug\TSGame.pdb
-C:\Users\rossh\Desktop\Dino-Jousting-master\obj\Debug\TSGame.Properties.Resources.resources
-C:\Users\rossh\Desktop\Dino-Jousting-master\obj\Debug\TSGame.csproj.CoreCompileInputs.cache
-C:\Users\rossh\Desktop\Dino-Jousting-master\obj\Debug\TSGame.exe
+C:\Users\rossh\Desktop\Dino-Jousting\TSGame\obj\Debug\TSGame.csprojAssemblyReference.cache
+C:\Users\rossh\Desktop\Dino-Jousting\TSGame\obj\Debug\TSGame.formMain.resources
+C:\Users\rossh\Desktop\Dino-Jousting\TSGame\obj\Debug\TSGame.csproj.GenerateResource.cache
+C:\Users\rossh\Desktop\Dino-Jousting\TSGame\obj\Debug\TSGame.pdb
+C:\Users\rossh\Desktop\Dino-Jousting\TSGame\bin\Debug\TSGame.exe.config
+C:\Users\rossh\Desktop\Dino-Jousting\TSGame\bin\Debug\TSGame.exe
+C:\Users\rossh\Desktop\Dino-Jousting\TSGame\bin\Debug\TSGame.pdb
+C:\Users\rossh\Desktop\Dino-Jousting\TSGame\obj\Debug\TSGame.Properties.Resources.resources
+C:\Users\rossh\Desktop\Dino-Jousting\TSGame\obj\Debug\TSGame.csproj.CoreCompileInputs.cache
+C:\Users\rossh\Desktop\Dino-Jousting\TSGame\obj\Debug\TSGame.exe
+C:\Users\rossh\Documents\GitHub\Dino-Jousting\TSGame\bin\Debug\TSGame.exe.config
+C:\Users\rossh\Documents\GitHub\Dino-Jousting\TSGame\bin\Debug\TSGame.exe
+C:\Users\rossh\Documents\GitHub\Dino-Jousting\TSGame\bin\Debug\TSGame.pdb
+C:\Users\rossh\Documents\GitHub\Dino-Jousting\TSGame\obj\Debug\TSGame.csprojAssemblyReference.cache
+C:\Users\rossh\Documents\GitHub\Dino-Jousting\TSGame\obj\Debug\TSGame.formMain.resources
+C:\Users\rossh\Documents\GitHub\Dino-Jousting\TSGame\obj\Debug\TSGame.Properties.Resources.resources
+C:\Users\rossh\Documents\GitHub\Dino-Jousting\TSGame\obj\Debug\TSGame.csproj.GenerateResource.cache
+C:\Users\rossh\Documents\GitHub\Dino-Jousting\TSGame\obj\Debug\TSGame.csproj.CoreCompileInputs.cache
+C:\Users\rossh\Documents\GitHub\Dino-Jousting\TSGame\obj\Debug\TSGame.exe
+C:\Users\rossh\Documents\GitHub\Dino-Jousting\TSGame\obj\Debug\TSGame.pdb

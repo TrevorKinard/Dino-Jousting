@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Threading;
+
 
 namespace TSGame
 {
@@ -38,7 +38,7 @@ namespace TSGame
             //Initilize Jousters (Opposing Picturebox, Characters Picturebox, Health Icon 1, Health Icon 2, Health Icon 3, Side(player: 0, Opposing: 1))
             PlJouster = new Jousters(this.EnemyJouster, this.PlayerJouster, this.PlayerHealth1, this.PlayerHealth2, this.PlayerHealth3, 0);
             EnJouster = new Jousters(this.PlayerJouster, this.EnemyJouster, this.EnemyHealth1, this.EnemyHealth2, this.EnemyHealth3, 1);
-            
+
             //Get Original positions for resetting
             PlOrigin = PlJouster.location;
             EnOrigin = EnJouster.location;
@@ -57,14 +57,13 @@ namespace TSGame
             check.Start();
 
             //Prevents activating the replay button on accident by holding spacebar when the game ends
-            buttonStart.DisableSelect();
-            buttonOptions.DisableSelect();
             buttonExit.DisableSelect();
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
+        private void buttonStart_Click(object sender, EventArgs e)
         {
-            if(this.buttonStart.Text == "Start")
+            if (this.buttonStart.Text == "Start")
             {
                 //Take User Input
                 this.KeyDown += new System.Windows.Forms.KeyEventHandler(PlJouster.keydown);
@@ -79,9 +78,14 @@ namespace TSGame
             {
                 this.panelStartMenu.Hide();
                 pauseMenuOpen = false;
+
+                //Enable movement once game resumes
+                this.KeyDown += new System.Windows.Forms.KeyEventHandler(PlJouster.keydown);
+                this.KeyUp += new System.Windows.Forms.KeyEventHandler(PlJouster.keyup);
             }
-            else if(buttonStart.Text == "Replay")
+            else if (buttonStart.Text == "Replay")
             {
+
                 PlayerHealth1.BackgroundImage = PlJouster.CropBitmap(global::TSGame.Properties.Resources.Shield, 1164, 803, 699, 650, 0);
                 PlayerHealth2.BackgroundImage = PlJouster.CropBitmap(global::TSGame.Properties.Resources.Shield, 1164, 803, 699, 650, 0);
                 PlayerHealth3.BackgroundImage = PlJouster.CropBitmap(global::TSGame.Properties.Resources.Shield, 1164, 803, 699, 650, 0);
@@ -100,6 +104,8 @@ namespace TSGame
                 panelWinScreen.SendToBack();
 
                 label3.Text = null;
+                buttonOptions.Show();
+                hasPressedPlay = false;
                 buttonStart.Text = "Start";
 
                 buttonOptions.Show();
@@ -111,7 +117,8 @@ namespace TSGame
 
         private void buttonOptions_Click(object sender, EventArgs e)
         {
-            BackgroundMusic.Stop();
+            //Options to implement
+
             if (buttonOptions.Text == "Options")
             {
                 buttonStart.Hide();
@@ -120,7 +127,6 @@ namespace TSGame
                 label4.Show();
                 trackBarMusicVolume.Show();
             }
-            //Options to implement
         }
 
         //Close the game when you press exit
@@ -138,6 +144,7 @@ namespace TSGame
                 label4.Hide();
                 trackBarMusicVolume.Hide();
             }
+
         }
 
         //Press Escape to open and close the pause menu
@@ -168,12 +175,12 @@ namespace TSGame
         }
         private void trackBarMusicVolume_Scroll(object sender, EventArgs e)
         {
-
         }
 
         private void tick(object sender, EventArgs e)
         {
-            if (PlJouster.state == 3)
+            PlJouster.setGamePausedFlag(pauseMenuOpen);
+            if (PlJouster.state == 2)
             {
                 panelWinScreen.BringToFront();
                 panelStartMenu.BringToFront();
@@ -187,13 +194,8 @@ namespace TSGame
                 label3.Show();
                 panelStartMenu.Show();
                 pauseMenuOpen = true;
-
-                //Without this the player can crash the game by still going out of health index
-                //But with it it can cause the sprites to get stuck moving if the player holds down an left/right key while the lose menu comes up
-                //this.KeyDown -= new System.Windows.Forms.KeyEventHandler(PlJouster.keydown);
-                //this.KeyUp -= new System.Windows.Forms.KeyEventHandler(PlJouster.keyup);
             }
-            else if (EnJouster.state == 3)
+            else if (EnJouster.state == 2)
             {
                 panelWinScreen.BringToFront();
                 panelStartMenu.BringToFront();
@@ -209,11 +211,18 @@ namespace TSGame
                 pauseMenuOpen = true;
                 PlJouster.ismovingleft = false;
                 PlJouster.ismovingright = false;
-                //this.KeyDown -= new System.Windows.Forms.KeyEventHandler(PlJouster.keydown);
-                //this.KeyUp -= new System.Windows.Forms.KeyEventHandler(PlJouster.keyup);
             }
         }
 
+        private void PlayerJouster_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EnemyJouster_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

@@ -13,8 +13,7 @@ namespace TSGame
     class MediaPlayback
     {
         private bool _closing = false;
-        private bool _pause = false;
-        public double Volume = .1;
+        public double Volume;
         public TimeSpan Position;
         //public TimeSpan position = MediaPlayer.Position; 
 
@@ -30,10 +29,6 @@ namespace TSGame
             mediaPlayer.Play();
             Position = mediaPlayer.Position;
 
-            while (_pause)
-            {
-                mediaPlayer.Pause();
-            }
             while (!_closing)
             {
                 System.Threading.Thread.Sleep(10);
@@ -41,7 +36,6 @@ namespace TSGame
                 mediaPlayer.Stop();
                 mediaPlayer.MediaEnded -= MediaPlayer_MediaEnded;
                 mediaPlayer.Close();
-
             }
 
         }
@@ -65,11 +59,7 @@ namespace TSGame
         }
         public void Resume()
         {
-            _pause = false;
-        }
-        public void Pause()
-        {
-            _pause = true;
+            _closing = false;
         }
     }
 }
