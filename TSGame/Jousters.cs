@@ -5,12 +5,15 @@ using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Media;
+using System.Windows.Media;
+using System.Threading;
+using System.IO;
 
 namespace TSGame
 {
     class Jousters
     {
-        public Jousters(PictureBox enemy,  PictureBox sprite, PictureBox health1, PictureBox health2, PictureBox health3, int side)
+        public Jousters(PictureBox enemy, PictureBox sprite, PictureBox health1, PictureBox health2, PictureBox health3, int side)
         {
             Sprite = sprite;
             Enemy = enemy;
@@ -19,33 +22,41 @@ namespace TSGame
             Health[1] = health2;
             Health[2] = health3;
 
-            //Crop Sprite & Health
+            Sprite.Paint += new System.Windows.Forms.PaintEventHandler(sprite_paint);
+
+            x_anim = 0;
+            y_anim = 0;
+
+            //AI
             if (side == 1)
             {
-                x_anim = 0;
-                y_anim = 0;
-                Sprite.Image = CropBitmap(Jouster, x_anim, y_anim, 144, 138, 1);
-                for (int i = 0; i < 3; i++)
-                {
-                    Health[i].BackgroundImage = CropBitmap(Shield, 1164, 803, 699, 650, 0);
-                }
-            }
-            //AI Crop
-            else
-            {
-                x_anim = 0;
-                y_anim = 0;
-                Sprite.Image = CropBitmap(Jouster, x_anim, 552, 144, 138, 0);
+                dir = 1;
+                location = 0;
                 for (int i = 0; i < 3; i++)
                 {
                     Health[i].BackgroundImage = CropBitmap(Shield, 1178, 19, 699, 650, 0);
                 }
             }
-            //Screen width
+            //Player
+            else
+            {
+                dir = 0;
+                location = (int)(Sprite.Width*2-144/2);
+                for (int i = 0; i < 3; i++)
+                {
+                    Health[i].BackgroundImage = CropBitmap(Shield, 1164, 803, 699, 650, 0);
+                }
+            }
+            CropBitmap(Jouster, 0, 0, 144, 138, 0);
+            Sprite.Refresh();
+            delay.Tick += new System.EventHandler(tick);
+            delay.Interval = 35;
+            delay.Start();
             state = 0;
             idle.PlayLooping();
         }
 
+        //Grab Rival
         public void setRival(Jousters rival)
         {
             Rival = rival;
@@ -53,127 +64,176 @@ namespace TSGame
         public void damage()
         {
             hit.Play();
-            Rival.Health[Rival.state].BackgroundImage = CropBitmap(Shield, 2103, 56, 699, 650, 0);
-            Rival.state++;
+            //PlaySound(@"C:\Users\rossh\Desktop\Dino-Jousting-master\Sound\Shield Bash");
+            Health[state].BackgroundImage = CropBitmap(Shield, 2103, 56, 699, 650, 0);
+            state++;
         }
 
         //Controls
-        public void moveLeft(object sender, KeyEventArgs e)
+        public void keydown(object sender, KeyEventArgs e)
         {
-            //Changed these to if so I could test them, using while causes a memory shortage
-            if (e.KeyCode == Keys.Left && Sprite.Location.X != 0)
+            idle.Stop();
+
+            if ((e.KeyCode == Keys.Left || ismovingleft) && location > 0)
             {
+                ismovingleft = true;
+                Rival.ismovingright = true;
+                Rival.dir = 1;
                 dir = 0;
-                idle.Stop();
-                moving.Play();
-                x_anim++;
-                Sprite.Image = CropBitmap(Jouster, x_anim * 144, y_anim * 138, 144, 138, 0);
-                if (x_anim == 3) x_anim = 0;
-                Sprite.Location = new Point(Sprite.Location.X - speed, Sprite.Location.Y);
-
-                //AI movement
-                if (Sprite.Location.X < formMain.ActiveForm.Width - Sprite.Width * 1.5 && Sprite.Location.X > Sprite.Width * 1.5  && Side == 1)
-                {
-                    Enemy.Image = Rival.CropBitmap(Jouster, Rival.x_anim * 144, y_anim * 138 + 552, 144, 138, 1);
-                    if (Rival.x_anim == 3) Rival.x_anim = 0;
-                    Rival.Sprite.Location = new Point(Rival.Sprite.Location.X + speed, Rival.Sprite.Location.Y);
-                }
-
-                idle.PlayLooping();
+                move();
             }
-
-            return;
-        }
-        public void moveRight(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Right && formMain.ActiveForm.Width > Sprite.Location.X + Sprite.Width)
+            if ((e.KeyCode == Keys.Right || ismovingright) && formMain.ActiveForm.Width > location + 144)
             {
+                ismovingright = true;
+                Rival.ismovingleft = true;
+                Rival.dir = 0;
                 dir = 1;
-                idle.Stop();
-                moving.Play();      
-                x_anim++;
-                Sprite.Image = CropBitmap(Jouster, x_anim * 144, y_anim * 138, 144, 138, 1);
-                if (x_anim == 3) x_anim = 0;
-                Sprite.Location = new Point(Sprite.Location.X + speed, Sprite.Location.Y);
-
-                //AI movement
-                 if (Sprite.Location.X > Sprite.Width * 1.5 && Sprite.Location.X < formMain.ActiveForm.Width - Sprite.Width * 1.5 && Side == 1)
-                {
-                    Enemy.Image = CropBitmap(Jouster, Rival.x_anim * 144, y_anim * 138 + 552, 144, 138, 0);
-                    if (Rival.x_anim == 3) Rival.x_anim = 0;
-                    Rival.Sprite.Location = new Point(Rival.Sprite.Location.X - speed, Rival.Sprite.Location.Y);
-                }
-
-                idle.PlayLooping();
+                move();
+            }
+            if (e.KeyCode == Keys.Space || islancing)
+            {
+                islancing = true;
+                lance();
+            }
+            if (e.KeyCode == Keys.Up && islancing)
+            {
+                attack();
             }
 
+            idle.PlayLooping();
             return;
         }
-        public void Lance(object sender, KeyEventArgs e)
+        public void keyup(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Space)
+            if (e.KeyCode == Keys.Left)
             {
-                idle.Stop();
-                lance_drop.Play();
-                
-                if (y_anim != 3)
-                {
-                    y_anim++;
-                    Sprite.Image = CropBitmap(Jouster, x_anim * 144, y_anim * 138, 144, 138, dir);
-
-                    //AI Lance
-                    if (Side == 1)
-                    {
-
-                        switch (dir)
-                        {
-                            case 0:
-                                Rival.Sprite.Image = CropBitmap(Jouster, Rival.x_anim * 144, y_anim * 138 + 552, 144, 138, 1);
-                                break;
-                            case 1:
-                                Rival.Sprite.Image = CropBitmap(Jouster, Rival.x_anim * 144, y_anim * 138 + 552, 144, 138, 0);
-                                break;
-                        }
-                    }
-                }
-
-            else
+                ismovingleft = false;
+                Rival.ismovingright = false;
+            }
+            if (e.KeyCode == Keys.Right)
             {
+                ismovingright = false;
+                Rival.ismovingleft = false;
+            }
+            if (e.KeyCode == Keys.Space && y_anim != 0)
+            {
+                islancing = false;
                 while (y_anim != 0)
                 {
                     y_anim--;
-                    Sprite.Image = CropBitmap(Jouster, x_anim * 144, y_anim * 138, 144, 138, 0);
+                    Rival.y_anim--;
+                    Sprite.Refresh();
+                    Enemy.Refresh();
                 }
             }
-                idle.PlayLooping();
-            }
-            return;
         }
-        public void Jab(object sender, KeyEventArgs e)
+
+        //Animations
+        private void move()
         {
-            if (e.KeyCode == Keys.Control)
+            moving.Play();
+            //PlaySound(@"C:\Users\rossh\Desktop\Dino-Jousting-master\Sound\Running.wav");
+            x_anim++;
+            Sprite.Refresh();
+            if (x_anim == 3) x_anim = 0;
+
+            //AI movement
+            if (location < formMain.ActiveForm.Size.Width - 144 * 1.5 && location > 144 * 1.5)
             {
-                jab.Play();
-                if (Enemy.Location.X - Sprite.Location.X < 220 || Enemy.Location.X - Sprite.Location.X > 200 ||
-                    Enemy.Location.X - Sprite.Location.X > -220 || Enemy.Location.X - Sprite.Location.X < -200 && Side == 1) Rival.damage();
+                Rival.x_anim++;
+                Enemy.Refresh();
+                if (Rival.x_anim == 3) Rival.x_anim = 0;
             }
 
-            return;
+        }
+        private void lance()
+        {
+            if (y_anim != 3)
+            {
+                lance_drop.Play();
+                //PlaySound(@"C:\Users\rossh\Desktop\Dino-Jousting-master\Sound\Lance Drop.wav");
+                y_anim++;
+                Rival.y_anim++;
+                Sprite.Refresh();
+                Enemy.Refresh();
+            }
+        }
+        private void attack()
+        {
+            jab.Play();
+            //PlaySound(@"C:\Users\rossh\Desktop\Dino-Jousting-master\Sound\Jab.wav");
+            if (Rival.location - location < 144 * .6 &&
+                Rival.location - location > 144 * .4 || location - Rival.location < 144 * .6 &&
+                location - Rival.location > 144 * .4) Rival.damage();
         }
 
-        //Sprite animation rate? need one
+        private bool isDead()
+        {
+            if (state == 2)
+                return true;
+            else
+                return false;
+        }
 
+        //Sprite animation rate
+        private void tick(object sender, EventArgs e)
+        {
+            if (ismovingleft && location > 0) move();
+            if (ismovingright && formMain.ActiveForm.Width > location + 144) move();
+            if (islancing)
+            {
+                lance();
+                //AI Attack
+                if (Side == 1 && Rival.location - location < 144 * .6 &&
+                Rival.location - location > 144 * .4 || location - Rival.location < 144 * .6 &&
+                location - Rival.location > 144 * .4)
+                {
+                    jab.Play();
+                    //PlaySound(@"C:\Users\rossh\Desktop\Dino-Jousting-master\Sound\Jab.wav");
+                    Random rand = new Random();
+                    int ranum = rand.Next(0, 1);
+                    if (ranum == 0) damage();                     
+                }
+            }
+        }
 
-            //Image cropping
-            private Bitmap CropBitmap(Bitmap image, int cropX, int cropY, int width, int height, int dir)
+        //Image cropping
+        public Bitmap CropBitmap(Bitmap image, int cropX, int cropY, int width, int height, int dir)
         {
             Rectangle rect = new Rectangle(cropX, cropY, width, height);
-            crop = image.Clone(rect,image.PixelFormat);
+            crop = image.Clone(rect, image.PixelFormat);
             if (dir == 1)
             {
                 crop.RotateFlip(RotateFlipType.Rotate180FlipY);
             }
             return crop;
+        }
+
+        //Image Update
+        private void sprite_paint(object sender, PaintEventArgs e)
+        {
+                if (ismovingright && location + 144 < formMain.ActiveForm.Width)
+                {
+                    location = location + speed;
+                }
+                else if (ismovingleft && location > 0)
+                {
+                    location = location - speed;
+                }
+                if (Side == 1)
+                    e.Graphics.DrawImage(CropBitmap(Jouster, x_anim * 144, y_anim * 138, 144, 138, dir), location, 0, crop.Width, crop.Height);
+                else
+                e.Graphics.DrawImage(CropBitmap(Jouster, x_anim * 144, y_anim * 138 + 552, 144, 138, dir), location, 0, crop.Width, crop.Height);
+        }
+
+
+
+
+        private void PlaySound(string source)
+        {
+            var mediaPlayer = new MediaPlayer();
+            mediaPlayer.Open(new Uri(Path.GetFullPath(source)));
+            mediaPlayer.Play();
         }
 
         //Variables
@@ -186,14 +246,20 @@ namespace TSGame
         private SoundPlayer lance_drop = new SoundPlayer(global::TSGame.Properties.Resources.Lance_Drop);
         private SoundPlayer jab = new SoundPlayer(global::TSGame.Properties.Resources.Jab);
         private SoundPlayer hit = new SoundPlayer(global::TSGame.Properties.Resources.Shield_Bash);
-        private PictureBox Sprite;
-        private PictureBox Enemy;
-        public PictureBox[] Health = new PictureBox[3];
-        private int Side;
-        private int dir;
-        private int state;
-        private int x_anim;
-        private int y_anim;
+        public PictureBox Sprite;
+        public PictureBox Enemy;
+        private PictureBox[] Health = new PictureBox[3];
+        private System.Windows.Forms.Timer delay = new System.Windows.Forms.Timer();
         private int speed = 5;
+        private int Side; 
+
+        public int location;
+        public int state;
+        public int x_anim;
+        public int y_anim;
+        public int dir;
+        public bool ismovingleft;
+        public bool ismovingright;
+        public bool islancing;
     }
 }

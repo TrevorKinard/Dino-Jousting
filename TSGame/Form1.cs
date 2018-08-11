@@ -5,12 +5,10 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.IO;
+using System.Threading;
 
 namespace TSGame
 {
@@ -20,74 +18,202 @@ namespace TSGame
         public static formMain Main;
         public bool pauseMenuOpen = false;
         public bool hasPressedPlay = false;
+        private System.Windows.Forms.Timer check = new System.Windows.Forms.Timer();
+        Jousters EnJouster;
+        Jousters PlJouster;
+        int PlOrigin;
+        int EnOrigin;
+        Point ExitOrigin;
+        MediaPlayback BackgroundMusic;
+
 
         public formMain()
         {
             InitializeComponent();
-            Jousters PlJouster = new Jousters(this.EnemyJouster, this.PlayerJouster, this.PlayerHealth1, this.PlayerHealth2, this.PlayerHealth3, 0);
-            Jousters EnJouster = new Jousters(this.PlayerJouster, this.EnemyJouster, this.EnemyHealth1, this.EnemyHealth2, this.EnemyHealth3, 1);
-            MediaPlayback BackgroundMusic = new MediaPlayback();
 
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(EnJouster.moveLeft);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(EnJouster.moveRight);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(EnJouster.Jab);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(EnJouster.Lance);
+            //Merge Image Layers
+            PlayerJouster.Parent = EnemyJouster;
+            PlayerJouster.Location = new Point(0,0);
+
+            //Initilize Jousters (Opposing Picturebox, Characters Picturebox, Health Icon 1, Health Icon 2, Health Icon 3, Side(player: 0, Opposing: 1))
+            PlJouster = new Jousters(this.EnemyJouster, this.PlayerJouster, this.PlayerHealth1, this.PlayerHealth2, this.PlayerHealth3, 0);
+            EnJouster = new Jousters(this.PlayerJouster, this.EnemyJouster, this.EnemyHealth1, this.EnemyHealth2, this.EnemyHealth3, 1);
+            
+            //Get Original positions for resetting
+            PlOrigin = PlJouster.location;
+            EnOrigin = EnJouster.location;
+            ExitOrigin = buttonExit.Location;
+
+            //Pass the Opposing Jouster
             PlJouster.setRival(EnJouster);
             EnJouster.setRival(PlJouster);
 
-            //Since this uses MediaPlayer instead of SoundPlayer it supports multiple audio files running at once
-            //You can use Environment."properties" to get the file location as opposed to hard coding, just wasnt sure of the syntax
-            BackgroundMusic.PlayAudio(@"C:\Users\roshall\Desktop\Dino-Jousting-master\TSGame\Sound\Gurdys Green - Patty Gurdy (Hurdy Gurdy Music).wav");
+            //Menu background music
+            BackgroundMusic = new MediaPlayback();
+            BackgroundMusic.PlayAudio(@"C:\Users\rossh\Desktop\Dino-Jousting-master\Sound\Gurdys Green - Patty Gurdy (Hurdy Gurdy Music).wav");
 
-        }
+            //Check player Health
+            check.Tick += new EventHandler(tick);
+            check.Start();
 
-        private void P1_MediaEnded(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
+            //Prevents activating the replay button on accident by holding spacebar when the game ends
+            buttonStart.DisableSelect();
+            buttonOptions.DisableSelect();
+            buttonExit.DisableSelect();
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
             if(this.buttonStart.Text == "Start")
             {
+                //Take User Input
+                this.KeyDown += new System.Windows.Forms.KeyEventHandler(PlJouster.keydown);
+                this.KeyUp += new System.Windows.Forms.KeyEventHandler(PlJouster.keyup);
+
                 this.panelStartMenu.Hide();
-                hasPressedPlay = true;
                 this.buttonStart.Text = "Resume";
+                hasPressedPlay = true;
             }
             //Change to the resume button after the player presses start
-            else
+            else if (buttonStart.Text == "Resume")
             {
                 this.panelStartMenu.Hide();
                 pauseMenuOpen = false;
             }
+            else if(buttonStart.Text == "Replay")
+            {
+                PlayerHealth1.BackgroundImage = PlJouster.CropBitmap(global::TSGame.Properties.Resources.Shield, 1164, 803, 699, 650, 0);
+                PlayerHealth2.BackgroundImage = PlJouster.CropBitmap(global::TSGame.Properties.Resources.Shield, 1164, 803, 699, 650, 0);
+                PlayerHealth3.BackgroundImage = PlJouster.CropBitmap(global::TSGame.Properties.Resources.Shield, 1164, 803, 699, 650, 0);
+
+                EnemyHealth1.BackgroundImage = EnJouster.CropBitmap(global::TSGame.Properties.Resources.Shield, 1178, 19, 699, 650, 0);
+                EnemyHealth2.BackgroundImage = EnJouster.CropBitmap(global::TSGame.Properties.Resources.Shield, 1178, 19, 699, 650, 0);
+                EnemyHealth3.BackgroundImage = EnJouster.CropBitmap(global::TSGame.Properties.Resources.Shield, 1178, 19, 699, 650, 0);
+
+                PlJouster.state = 0;
+                EnJouster.state = 0;
+
+                buttonExit.Location = ExitOrigin;
+                PlJouster.location = PlOrigin;
+                EnJouster.location = EnOrigin;
+
+                panelWinScreen.SendToBack();
+
+                label3.Text = null;
+                buttonStart.Text = "Start";
+
+                buttonOptions.Show();
+                panelWinScreen.Hide();
+                label3.Hide();
+            }
+
         }
 
         private void buttonOptions_Click(object sender, EventArgs e)
         {
+            BackgroundMusic.Stop();
+            if (buttonOptions.Text == "Options")
+            {
+                buttonStart.Hide();
+                buttonOptions.Hide();
+                buttonExit.Text = "Back";
+                label4.Show();
+                trackBarMusicVolume.Show();
+            }
             //Options to implement
         }
 
         //Close the game when you press exit
         private void buttonExit_Click_1(object sender, EventArgs e)
         {
-            this.Close();
+            if (buttonExit.Text == "Exit")
+                Close();
+            else if (buttonExit.Text == "Back")
+            {
+                buttonOptions.Text = "Options";
+                buttonExit.Text = "Exit";
+                buttonStart.Show();
+                buttonOptions.Show();
+                buttonExit.Show();
+                label4.Hide();
+                trackBarMusicVolume.Hide();
+            }
         }
 
         //Press Escape to open and close the pause menu
         protected override bool ProcessDialogKey(Keys keyData)
         {
+            //Closing the menu
             if (keyData == Keys.Escape && pauseMenuOpen == true && hasPressedPlay == true)
             {
+
+                //Enable movement once game resumes
+                this.KeyDown += new System.Windows.Forms.KeyEventHandler(PlJouster.keydown);
+                this.KeyUp += new System.Windows.Forms.KeyEventHandler(PlJouster.keyup);
+
                 this.panelStartMenu.Hide();
                 pauseMenuOpen = false;
             }
+            //Opening the menu 
             else if (keyData == Keys.Escape)
             {
+                //Disable movement while the pause screen is open
+                this.KeyDown -= new System.Windows.Forms.KeyEventHandler(PlJouster.keydown);
+                this.KeyUp -= new System.Windows.Forms.KeyEventHandler(PlJouster.keyup);
+
                 this.panelStartMenu.Show();
                 pauseMenuOpen = true;
             }
             return base.ProcessDialogKey(keyData);
         }
+        private void trackBarMusicVolume_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tick(object sender, EventArgs e)
+        {
+            if (PlJouster.state == 3)
+            {
+                panelWinScreen.BringToFront();
+                panelStartMenu.BringToFront();
+                label3.Text = "You Lose";
+                buttonStart.Text = "Replay";
+                label3.ForeColor = System.Drawing.Color.Black;
+                panelWinScreen.BackColor = System.Drawing.Color.Aqua;
+                buttonExit.Location = buttonOptions.Location;
+                buttonOptions.Hide();
+                panelWinScreen.Show();
+                label3.Show();
+                panelStartMenu.Show();
+                pauseMenuOpen = true;
+
+                //Without this the player can crash the game by still going out of health index
+                //But with it it can cause the sprites to get stuck moving if the player holds down an left/right key while the lose menu comes up
+                //this.KeyDown -= new System.Windows.Forms.KeyEventHandler(PlJouster.keydown);
+                //this.KeyUp -= new System.Windows.Forms.KeyEventHandler(PlJouster.keyup);
+            }
+            else if (EnJouster.state == 3)
+            {
+                panelWinScreen.BringToFront();
+                panelStartMenu.BringToFront();
+                label3.Text = "You Win";
+                buttonStart.Text = "Replay";
+                panelWinScreen.BackColor = System.Drawing.Color.Aqua;
+                label3.ForeColor = System.Drawing.Color.Black;
+                buttonExit.Location = buttonOptions.Location;
+                buttonOptions.Hide();
+                panelWinScreen.Show();
+                label3.Show();
+                panelStartMenu.Show();
+                pauseMenuOpen = true;
+                PlJouster.ismovingleft = false;
+                PlJouster.ismovingright = false;
+                //this.KeyDown -= new System.Windows.Forms.KeyEventHandler(PlJouster.keydown);
+                //this.KeyUp -= new System.Windows.Forms.KeyEventHandler(PlJouster.keyup);
+            }
+        }
+
     }
 
 }
