@@ -189,7 +189,7 @@ namespace TSGame
 
         private void formMain_Paint(object sender, PaintEventArgs e)
         {
-            if (PlJouster.state == 3)
+            if (PlJouster.state > 2)
             {
                 panelWinScreen.BringToFront();
                 panelStartMenu.BringToFront();
@@ -204,7 +204,7 @@ namespace TSGame
                 panelStartMenu.Show();
                 pauseMenuOpen = true;
             }
-            else if (EnJouster.state == 3)
+            else if (EnJouster.state > 2)
             {
                 panelWinScreen.BringToFront();
                 panelStartMenu.BringToFront();

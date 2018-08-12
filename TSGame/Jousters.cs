@@ -60,8 +60,9 @@ namespace TSGame
         {
             hit.Play();
 
-            Health[state].BackgroundImage = CropBitmap(Shield, 2103, 56, 699, 650, 0);
-            if (state < 3) state++;
+            if (state < 2)
+                Health[state].BackgroundImage = CropBitmap(Shield, 2103, 56, 699, 650, 0);
+            state++;
             Sprite.Refresh();
             Enemy.Refresh();
         }
