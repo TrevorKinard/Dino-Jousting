@@ -49,7 +49,6 @@ namespace TSGame
             delay.Interval = 35;
             delay.Start();
             state = 0;
-            idle.PlayLooping();
         }
 
         //Grab Rival
@@ -62,18 +61,16 @@ namespace TSGame
             hit.Play();
 
             Health[state].BackgroundImage = CropBitmap(Shield, 2103, 56, 699, 650, 0);
-            if (state < 2)
-            state++;
+            if (state < 3) state++;
+            Sprite.Refresh();
+            Enemy.Refresh();
         }
 
         //Controls
         public void keydown(object sender, KeyEventArgs e)
         {
             idle.Stop();
-            //If Pause Menu is not open
-            if (!GamePausedFlag)
-            {
-                if ((e.KeyCode == Keys.Left || ismovingleft) && location > 0 && !GamePausedFlag)
+                if ((e.KeyCode == Keys.Left || ismovingleft) && location > 0)
                 {
                     ismovingleft = true;
                     Rival.ismovingright = true;
@@ -97,12 +94,9 @@ namespace TSGame
                 if (e.KeyCode == Keys.Up && islancing)
                 {
                     attack();
-                }
-            }
-               
+                }               
 
             idle.PlayLooping();
-            return;
         }
         public void keyup(object sender, KeyEventArgs e)
         {
@@ -163,14 +157,11 @@ namespace TSGame
                 Rival.location - location > 144 * .4 || location - Rival.location < 144 * .6 &&
                 location - Rival.location > 144 * .4) Rival.damage();
         }
-        public void setGamePausedFlag(bool flag)
-        {
-            GamePausedFlag = flag;
-        }
 
         //Sprite animation rate
         private void tick(object sender, EventArgs e)
         {
+            if (location == -200) location = formMain.ActiveForm.Width - 144;
             if (ismovingleft && location > 0) move();
             if (ismovingright && formMain.ActiveForm.Width > location + 144) move();
             if (islancing)
@@ -223,7 +214,6 @@ namespace TSGame
         private Bitmap Jouster = global::TSGame.Properties.Resources.Jousting_Sprite;
         private Bitmap Shield = global::TSGame.Properties.Resources.Shield;
         private Bitmap crop;
-        private SoundPlayer idle = new SoundPlayer(global::TSGame.Properties.Resources.Idle);
         private SoundPlayer moving = new SoundPlayer(global::TSGame.Properties.Resources.Running);
         private SoundPlayer lance_drop = new SoundPlayer(global::TSGame.Properties.Resources.Lance_Drop);
         private SoundPlayer jab = new SoundPlayer(global::TSGame.Properties.Resources.Jab);
@@ -234,8 +224,8 @@ namespace TSGame
         private Timer delay = new System.Windows.Forms.Timer();
         private int speed = 5;
         private int Side;
-        private bool GamePausedFlag;
 
+        public SoundPlayer idle = new SoundPlayer(global::TSGame.Properties.Resources.Idle);
         public int location;
         public int state;
         public int x_anim;

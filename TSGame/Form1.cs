@@ -21,8 +21,6 @@ namespace TSGame
         private System.Windows.Forms.Timer check = new System.Windows.Forms.Timer();
         Jousters EnJouster;
         Jousters PlJouster;
-        int PlOrigin;
-        int EnOrigin;
         Point ExitOrigin;
         MediaPlayback BackgroundMusic;
 
@@ -40,8 +38,6 @@ namespace TSGame
             EnJouster = new Jousters(this.PlayerJouster, this.EnemyJouster, this.EnemyHealth1, this.EnemyHealth2, this.EnemyHealth3, 1);
 
             //Get Original positions for resetting
-            PlOrigin = PlJouster.location;
-            EnOrigin = EnJouster.location;
             ExitOrigin = buttonExit.Location;
 
             //Pass the Opposing Jouster
@@ -51,10 +47,6 @@ namespace TSGame
             //Menu background music
             BackgroundMusic = new MediaPlayback();
             BackgroundMusic.PlayAudio(@"C:\Users\rossh\Desktop\Dino-Jousting-master\Sound\Gurdys Green - Patty Gurdy (Hurdy Gurdy Music).wav");
-
-            //Check player Health
-            check.Tick += new EventHandler(tick);
-            check.Start();
 
             //Prevents activating the replay button on accident by holding spacebar when the game ends
             buttonExit.DisableSelect();
@@ -67,6 +59,7 @@ namespace TSGame
                 //Take User Input
                 this.KeyDown += new System.Windows.Forms.KeyEventHandler(PlJouster.keydown);
                 this.KeyUp += new System.Windows.Forms.KeyEventHandler(PlJouster.keyup);
+                PlJouster.idle.PlayLooping();
 
                 this.panelStartMenu.Hide();
                 this.buttonStart.Text = "Resume";
@@ -97,8 +90,10 @@ namespace TSGame
                 EnJouster.state = 0;
 
                 buttonExit.Location = ExitOrigin;
-                PlJouster.location = PlOrigin;
-                EnJouster.location = EnOrigin;
+                PlJouster.location = formMain.ActiveForm.Width - 144;
+                EnJouster.location = 0;
+                PlayerJouster.Refresh();
+                EnemyJouster.Refresh();
 
                 panelWinScreen.SendToBack();
 
@@ -132,7 +127,13 @@ namespace TSGame
         private void buttonExit_Click_1(object sender, EventArgs e)
         {
             if (buttonExit.Text == "Exit")
-                Close();
+            {
+                PlJouster.idle.Stop();
+                EnJouster.idle.Stop();
+                BackgroundMusic.Stop();
+                this.Close();
+                Application.Exit();
+            }
             else if (buttonExit.Text == "Back")
             {
                 buttonOptions.Text = "Options";
@@ -174,12 +175,21 @@ namespace TSGame
         }
         private void trackBarMusicVolume_Scroll(object sender, EventArgs e)
         {
+        } 
+
+        private void PlayerJouster_Click(object sender, EventArgs e)
+        {
+
         }
 
-        private void tick(object sender, EventArgs e)
+        private void EnemyJouster_Click(object sender, EventArgs e)
         {
-            PlJouster.setGamePausedFlag(pauseMenuOpen);
-            if (PlJouster.state == 2)
+
+        }
+
+        private void formMain_Paint(object sender, PaintEventArgs e)
+        {
+            if (PlJouster.state == 3)
             {
                 panelWinScreen.BringToFront();
                 panelStartMenu.BringToFront();
@@ -194,7 +204,7 @@ namespace TSGame
                 panelStartMenu.Show();
                 pauseMenuOpen = true;
             }
-            else if (EnJouster.state == 2)
+            else if (EnJouster.state == 3)
             {
                 panelWinScreen.BringToFront();
                 panelStartMenu.BringToFront();
@@ -211,21 +221,6 @@ namespace TSGame
                 PlJouster.ismovingleft = false;
                 PlJouster.ismovingright = false;
             }
-        }
-
-        private void PlayerJouster_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EnemyJouster_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void formMain_Load(object sender, EventArgs e)
-        {
-            PlJouster.location = formMain.ActiveForm.Width - 144;
         }
     }
 

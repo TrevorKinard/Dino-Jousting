@@ -30,12 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formMain));
             this.panelGamePlay = new System.Windows.Forms.Panel();
-            this.panelStartMenu = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.trackBarMusicVolume = new System.Windows.Forms.TrackBar();
-            this.buttonExit = new System.Windows.Forms.Button();
-            this.buttonOptions = new System.Windows.Forms.Button();
-            this.buttonStart = new System.Windows.Forms.Button();
             this.PlayerJouster = new System.Windows.Forms.PictureBox();
             this.EnemyHealth1 = new System.Windows.Forms.PictureBox();
             this.EnemyHealth2 = new System.Windows.Forms.PictureBox();
@@ -45,12 +39,16 @@
             this.PlayerHealth2 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.PlayerHealth1 = new System.Windows.Forms.PictureBox();
-            this.EnemyJouster = new System.Windows.Forms.PictureBox();
             this.panelWinScreen = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
+            this.buttonStart = new System.Windows.Forms.Button();
+            this.buttonOptions = new System.Windows.Forms.Button();
+            this.buttonExit = new System.Windows.Forms.Button();
+            this.trackBarMusicVolume = new System.Windows.Forms.TrackBar();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panelStartMenu = new System.Windows.Forms.Panel();
+            this.EnemyJouster = new System.Windows.Forms.PictureBox();
             this.panelGamePlay.SuspendLayout();
-            this.panelStartMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarMusicVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerJouster)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnemyHealth1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnemyHealth2)).BeginInit();
@@ -58,8 +56,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.PlayerHealth3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerHealth2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerHealth1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EnemyJouster)).BeginInit();
             this.panelWinScreen.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarMusicVolume)).BeginInit();
+            this.panelStartMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EnemyJouster)).BeginInit();
             this.SuspendLayout();
             // 
             // panelGamePlay
@@ -85,75 +85,6 @@
             this.panelGamePlay.Size = new System.Drawing.Size(720, 453);
             this.panelGamePlay.TabIndex = 1;
             // 
-            // panelStartMenu
-            // 
-            this.panelStartMenu.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panelStartMenu.BackColor = System.Drawing.SystemColors.GrayText;
-            this.panelStartMenu.Controls.Add(this.label4);
-            this.panelStartMenu.Controls.Add(this.trackBarMusicVolume);
-            this.panelStartMenu.Controls.Add(this.buttonExit);
-            this.panelStartMenu.Controls.Add(this.buttonOptions);
-            this.panelStartMenu.Controls.Add(this.buttonStart);
-            this.panelStartMenu.Location = new System.Drawing.Point(217, 113);
-            this.panelStartMenu.Name = "panelStartMenu";
-            this.panelStartMenu.Size = new System.Drawing.Size(286, 201);
-            this.panelStartMenu.TabIndex = 0;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Showcard Gothic", 20.25F, System.Drawing.FontStyle.Italic);
-            this.label4.Location = new System.Drawing.Point(37, 25);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(211, 33);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Music Volume";
-            this.label4.Visible = false;
-            // 
-            // trackBarMusicVolume
-            // 
-            this.trackBarMusicVolume.Location = new System.Drawing.Point(43, 73);
-            this.trackBarMusicVolume.Name = "trackBarMusicVolume";
-            this.trackBarMusicVolume.Size = new System.Drawing.Size(205, 45);
-            this.trackBarMusicVolume.TabIndex = 3;
-            this.trackBarMusicVolume.Visible = false;
-            // 
-            // buttonExit
-            // 
-            this.buttonExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.buttonExit.Font = new System.Drawing.Font("Showcard Gothic", 20.25F, System.Drawing.FontStyle.Italic);
-            this.buttonExit.Location = new System.Drawing.Point(65, 124);
-            this.buttonExit.Name = "buttonExit";
-            this.buttonExit.Size = new System.Drawing.Size(156, 43);
-            this.buttonExit.TabIndex = 2;
-            this.buttonExit.Text = "Exit";
-            this.buttonExit.UseVisualStyleBackColor = true;
-            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click_1);
-            // 
-            // buttonOptions
-            // 
-            this.buttonOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.buttonOptions.Font = new System.Drawing.Font("Showcard Gothic", 20.25F, System.Drawing.FontStyle.Italic);
-            this.buttonOptions.Location = new System.Drawing.Point(65, 75);
-            this.buttonOptions.Name = "buttonOptions";
-            this.buttonOptions.Size = new System.Drawing.Size(156, 43);
-            this.buttonOptions.TabIndex = 1;
-            this.buttonOptions.Text = "Options";
-            this.buttonOptions.UseVisualStyleBackColor = true;
-            this.buttonOptions.Click += new System.EventHandler(this.buttonOptions_Click);
-            // 
-            // buttonStart
-            // 
-            this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.buttonStart.Font = new System.Drawing.Font("Showcard Gothic", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStart.Location = new System.Drawing.Point(65, 24);
-            this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(156, 45);
-            this.buttonStart.TabIndex = 0;
-            this.buttonStart.Text = "Start";
-            this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
-            // 
             // PlayerJouster
             // 
             this.PlayerJouster.BackColor = System.Drawing.Color.Transparent;
@@ -166,6 +97,7 @@
             this.PlayerJouster.TabIndex = 2;
             this.PlayerJouster.TabStop = false;
             this.PlayerJouster.Click += new System.EventHandler(this.PlayerJouster_Click);
+            this.PlayerJouster.Paint += new System.Windows.Forms.PaintEventHandler(this.formMain_Paint);
             // 
             // EnemyHealth1
             // 
@@ -261,19 +193,6 @@
             this.PlayerHealth1.TabIndex = 4;
             this.PlayerHealth1.TabStop = false;
             // 
-            // EnemyJouster
-            // 
-            this.EnemyJouster.BackColor = System.Drawing.Color.Transparent;
-            this.EnemyJouster.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.EnemyJouster.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.EnemyJouster.Location = new System.Drawing.Point(0, 262);
-            this.EnemyJouster.Margin = new System.Windows.Forms.Padding(1);
-            this.EnemyJouster.Name = "EnemyJouster";
-            this.EnemyJouster.Size = new System.Drawing.Size(720, 191);
-            this.EnemyJouster.TabIndex = 3;
-            this.EnemyJouster.TabStop = false;
-            this.EnemyJouster.Click += new System.EventHandler(this.EnemyJouster_Click);
-            // 
             // panelWinScreen
             // 
             this.panelWinScreen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -298,6 +217,89 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "You Win";
             // 
+            // buttonStart
+            // 
+            this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.buttonStart.Font = new System.Drawing.Font("Showcard Gothic", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonStart.Location = new System.Drawing.Point(65, 24);
+            this.buttonStart.Name = "buttonStart";
+            this.buttonStart.Size = new System.Drawing.Size(156, 45);
+            this.buttonStart.TabIndex = 0;
+            this.buttonStart.Text = "Start";
+            this.buttonStart.UseVisualStyleBackColor = true;
+            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
+            // 
+            // buttonOptions
+            // 
+            this.buttonOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.buttonOptions.Font = new System.Drawing.Font("Showcard Gothic", 20.25F, System.Drawing.FontStyle.Italic);
+            this.buttonOptions.Location = new System.Drawing.Point(65, 75);
+            this.buttonOptions.Name = "buttonOptions";
+            this.buttonOptions.Size = new System.Drawing.Size(156, 43);
+            this.buttonOptions.TabIndex = 1;
+            this.buttonOptions.Text = "Options";
+            this.buttonOptions.UseVisualStyleBackColor = true;
+            this.buttonOptions.Click += new System.EventHandler(this.buttonOptions_Click);
+            // 
+            // buttonExit
+            // 
+            this.buttonExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.buttonExit.Font = new System.Drawing.Font("Showcard Gothic", 20.25F, System.Drawing.FontStyle.Italic);
+            this.buttonExit.Location = new System.Drawing.Point(65, 124);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Size = new System.Drawing.Size(156, 43);
+            this.buttonExit.TabIndex = 2;
+            this.buttonExit.Text = "Exit";
+            this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click_1);
+            // 
+            // trackBarMusicVolume
+            // 
+            this.trackBarMusicVolume.Location = new System.Drawing.Point(43, 73);
+            this.trackBarMusicVolume.Name = "trackBarMusicVolume";
+            this.trackBarMusicVolume.Size = new System.Drawing.Size(205, 45);
+            this.trackBarMusicVolume.TabIndex = 3;
+            this.trackBarMusicVolume.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Showcard Gothic", 20.25F, System.Drawing.FontStyle.Italic);
+            this.label4.Location = new System.Drawing.Point(37, 25);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(211, 33);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Music Volume";
+            this.label4.Visible = false;
+            // 
+            // panelStartMenu
+            // 
+            this.panelStartMenu.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panelStartMenu.BackColor = System.Drawing.SystemColors.GrayText;
+            this.panelStartMenu.Controls.Add(this.label4);
+            this.panelStartMenu.Controls.Add(this.trackBarMusicVolume);
+            this.panelStartMenu.Controls.Add(this.buttonExit);
+            this.panelStartMenu.Controls.Add(this.buttonOptions);
+            this.panelStartMenu.Controls.Add(this.buttonStart);
+            this.panelStartMenu.Location = new System.Drawing.Point(217, 113);
+            this.panelStartMenu.Name = "panelStartMenu";
+            this.panelStartMenu.Size = new System.Drawing.Size(286, 201);
+            this.panelStartMenu.TabIndex = 0;
+            // 
+            // EnemyJouster
+            // 
+            this.EnemyJouster.BackColor = System.Drawing.Color.Transparent;
+            this.EnemyJouster.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.EnemyJouster.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.EnemyJouster.Location = new System.Drawing.Point(0, 262);
+            this.EnemyJouster.Margin = new System.Windows.Forms.Padding(1);
+            this.EnemyJouster.Name = "EnemyJouster";
+            this.EnemyJouster.Size = new System.Drawing.Size(720, 191);
+            this.EnemyJouster.TabIndex = 3;
+            this.EnemyJouster.TabStop = false;
+            this.EnemyJouster.Click += new System.EventHandler(this.EnemyJouster_Click);
+            this.EnemyJouster.Paint += new System.Windows.Forms.PaintEventHandler(this.formMain_Paint);
+            // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -312,12 +314,9 @@
             this.Name = "formMain";
             this.Text = "Game";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.formMain_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.formMain_Paint);
             this.panelGamePlay.ResumeLayout(false);
             this.panelGamePlay.PerformLayout();
-            this.panelStartMenu.ResumeLayout(false);
-            this.panelStartMenu.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarMusicVolume)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerJouster)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnemyHealth1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnemyHealth2)).EndInit();
@@ -325,22 +324,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.PlayerHealth3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerHealth2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerHealth1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EnemyJouster)).EndInit();
             this.panelWinScreen.ResumeLayout(false);
             this.panelWinScreen.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarMusicVolume)).EndInit();
+            this.panelStartMenu.ResumeLayout(false);
+            this.panelStartMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EnemyJouster)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panelStartMenu;
-        private System.Windows.Forms.Button buttonExit;
-        private System.Windows.Forms.Button buttonOptions;
-        private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.Panel panelGamePlay;
         private System.Windows.Forms.PictureBox PlayerJouster;
-        private System.Windows.Forms.PictureBox EnemyJouster;
         private System.Windows.Forms.PictureBox EnemyHealth1;
         private System.Windows.Forms.PictureBox EnemyHealth2;
         private System.Windows.Forms.Label label2;
@@ -351,8 +347,13 @@
         private System.Windows.Forms.PictureBox PlayerHealth1;
         private System.Windows.Forms.Panel panelWinScreen;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TrackBar trackBarMusicVolume;
+        private System.Windows.Forms.Panel panelStartMenu;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TrackBar trackBarMusicVolume;
+        private System.Windows.Forms.Button buttonExit;
+        private System.Windows.Forms.Button buttonOptions;
+        private System.Windows.Forms.Button buttonStart;
+        private System.Windows.Forms.PictureBox EnemyJouster;
     }
 }
 
