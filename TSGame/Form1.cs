@@ -61,7 +61,6 @@ namespace TSGame
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
-        private void buttonStart_Click(object sender, EventArgs e)
         {
             if (this.buttonStart.Text == "Start")
             {
@@ -222,6 +221,11 @@ namespace TSGame
         private void EnemyJouster_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void formMain_Load(object sender, EventArgs e)
+        {
+            PlJouster.location = formMain.ActiveForm.Width - 144;
         }
     }
 

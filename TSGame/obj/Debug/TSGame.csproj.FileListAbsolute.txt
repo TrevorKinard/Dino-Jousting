@@ -28,3 +28,13 @@ C:\Users\rossh\Documents\GitHub\Dino-Jousting\TSGame\obj\Debug\TSGame.csproj.Gen
 C:\Users\rossh\Documents\GitHub\Dino-Jousting\TSGame\obj\Debug\TSGame.csproj.CoreCompileInputs.cache
 C:\Users\rossh\Documents\GitHub\Dino-Jousting\TSGame\obj\Debug\TSGame.exe
 C:\Users\rossh\Documents\GitHub\Dino-Jousting\TSGame\obj\Debug\TSGame.pdb
+C:\Users\Trevor\Source\Repos\Dino-Jousting2\TSGame\bin\Debug\TSGame.exe.config
+C:\Users\Trevor\Source\Repos\Dino-Jousting2\TSGame\bin\Debug\TSGame.exe
+C:\Users\Trevor\Source\Repos\Dino-Jousting2\TSGame\bin\Debug\TSGame.pdb
+C:\Users\Trevor\Source\Repos\Dino-Jousting2\TSGame\obj\Debug\TSGame.csprojAssemblyReference.cache
+C:\Users\Trevor\Source\Repos\Dino-Jousting2\TSGame\obj\Debug\TSGame.formMain.resources
+C:\Users\Trevor\Source\Repos\Dino-Jousting2\TSGame\obj\Debug\TSGame.Properties.Resources.resources
+C:\Users\Trevor\Source\Repos\Dino-Jousting2\TSGame\obj\Debug\TSGame.csproj.GenerateResource.cache
+C:\Users\Trevor\Source\Repos\Dino-Jousting2\TSGame\obj\Debug\TSGame.csproj.CoreCompileInputs.cache
+C:\Users\Trevor\Source\Repos\Dino-Jousting2\TSGame\obj\Debug\TSGame.exe
+C:\Users\Trevor\Source\Repos\Dino-Jousting2\TSGame\obj\Debug\TSGame.pdb

@@ -312,6 +312,7 @@
             this.Name = "formMain";
             this.Text = "Game";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.formMain_Load);
             this.panelGamePlay.ResumeLayout(false);
             this.panelGamePlay.PerformLayout();
             this.panelStartMenu.ResumeLayout(false);

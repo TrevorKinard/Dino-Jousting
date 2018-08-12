@@ -37,7 +37,7 @@ namespace TSGame
             else
             {
                 dir = 0;
-                location = (int)(Sprite.Width*2-144/2);
+                location = -200;
                 for (int i = 0; i < 3; i++)
                 {
                     Health[i].BackgroundImage = CropBitmap(Shield, 1164, 803, 699, 650, 0);
